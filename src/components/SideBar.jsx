@@ -60,7 +60,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
         ))}
       </nav>
 
-      <div className='flex flex-col items-center gap-1 px-2 mt-1'>
+      <div className='flex flex-col items-center gap-1 px-2 my-3'>
         <button type="button"
         onClick={logout}
         className={`bg-red-700 text-white font-semibold hover:bg-red-700/80 transform transition-colors delay-100 ease-in-out cursor-pointer ${
