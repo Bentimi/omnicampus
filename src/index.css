@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-omni-navy: #0B1120;
+  --color-omni-primary: #1D4ED8;
+  --color-omni-secondary: #0D9488;
+  --color-omni-accent: #F59E0B;
+  --color-omni-dark: #1E293B;
+  --color-omni-light: #F8FAFC;
+}
+
+@layer utilities {
+  .active {
+    @apply bg-white/20 text-white font-semibold
+  }
+  .inactive {
+    @apply text-white/80 hover:bg-white/10 font-semibold
+  }
+  .input {
+    @apply border-2 border-gray-300 h-10 p-2 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-3 focus:ring-omni-accent/20 dark:focus:ring-omni-navy/20 focus:border-omni-accent dark:focus:border-omni-navy
+  }
+  /* .input-border {
+    @apply border-2 border-gray-300 h-10 p-2 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-3 focus:ring-omni-accent/20 dark:focus:ring-omni-navy/20 focus:border-omni-accent dark:focus:border-omni-navy relative
+  } */
+  .input-border {
+    @apply flex justify-between items-center border-2 border-gray-300 h-10 p-2 px-3 rounded-lg transition-colors duration-200 focus-within:outline-none focus-within:ring-3 focus-within:ring-omni-accent/20 focus-within:border-omni-accent cursor-text bg-white
+  }
+  .off-input {
+    @apply outline-0 border-0 bg-transparent w-full flex-1
+  }
+  .modal-input {
+    @apply border-2 border-gray-300 h-10 p-2 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-3 dark:focus:ring-omni-accent/20 focus:ring-omni-navy/20 dark:focus:border-omni-accent focus:border-omni-navy
+  }
+  .error-input {
+    @apply border-2 h-10 p-2 rounded-lg transition-colors duration-200 outline-none focus-within:ring-3 ring-rose-700/20 border-rose-700
+  }
+  .filter {
+     background: linear-gradient(to bottom right, rgba(22,34,57,0.85), rgba(22,34,57,0.85));
+     z-index: 2;
+  }
+  .error {
+    @apply text-rose-700
+  }
+  .label {
+    @apply text-gray-500 font-semibold
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
