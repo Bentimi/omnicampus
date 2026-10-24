@@ -124,10 +124,10 @@ const Table = ({ columns, data, paginationTotalRows, onChangePage, onChangeRowsP
             paginationServer
             progressPending={progressPending}
             paginationTotalRows={paginationTotalRows}
-            // paginationPerPage={pageSize}
+            paginationPerPage={pageSize}
             fixedHeader
             fixedHeaderScrollHeight='50vh'
-            paginationRowsPerPageOptions={[5, 10, 20, 100]}
+            paginationRowsPerPageOptions={[2, 5, 10, 20, 100]}
             onChangePage={onChangePage}
             onChangeRowsPerPage={onChangeRowsPerPage}
             sortable

@@ -16,7 +16,7 @@ const create_Session = async (formData) => {
     }
 }
 
-const all_Session = async (page=1, pageSize=5, search='') => {
+const all_Session = async (page, pageSize, search='') => {
     try {
         const res = await api.get(`/session?page=${page}&pageSize=${pageSize}&session=${encodeURIComponent(search)}`);
         // console.log(res?.data)

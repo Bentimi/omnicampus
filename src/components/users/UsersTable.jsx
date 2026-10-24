@@ -7,7 +7,7 @@ import EditModal from "../profile/EditModal";
 
 const UsersTable = () => {
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(5);
     const [search, setSearch] = useState('')
     const [users, setUsers] = useState(null)
     const [userId, setUserId] = useState(null);
@@ -21,7 +21,7 @@ const UsersTable = () => {
             setUsers(userData?.data)
         }
     }, [userData, setUsers])
-    console.log(users)
+    // console.log(users)
 
     const handlePage = (newPage) => {
         setPage(newPage)

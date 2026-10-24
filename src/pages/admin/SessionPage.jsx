@@ -224,7 +224,7 @@ const SessionPage = () => {
     <>
     <div className='bg-omni-light dark:bg-omni-navy min-h-[120vh] lg:min-h-[95vh] py-6'>
       <div className='flex justify-center'>
-        <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 space-y-3 space-x-2 p-2 justify-start'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 space-y-3 space-x-2 p-2 justify-start'>
         <StatCards number={activeSession} text='text-green-800' icon={<LucideSparkle size={50} color='green' />} title='Active Sessions' />
         <StatCards number={inActiveSession} text='text-red-600' icon={<LucideXCircle size={50} color='red' />} title='Inactive Sessions' />
         <StatCards number={totalSession} text='text-orange-300' icon={<LucideSparkle size={50} color='orange' />} title='Total Sessions' />

@@ -17,16 +17,18 @@ const change_Password = async (formData) => {
 const deactivate_User = async (userId) => {
     try {
         const res = await api.delete(`/account/delete/${userId}`)
-        return response.data
+        console.log(res?.data)
+        return res?.data
     } catch (e) {
+        // console.log(e.response?.data?.message)
         throw new Error(e.response?.data?.message)
     }
 }
 
-const get_Users = async (page=1, pageSize=10, search) => {
+const get_Users = async (page=1, pageSize=5, search='') => {
     try {
         // console.log(page)
-        const res = await api.get(`/account/users?page=${page}&pageSize=${pageSize}&search=${search}`)
+        const res = await api.get(`/account/users?page=${page}&pageSize=${pageSize}&search=${encodeURIComponent(search)}`)
         // console.log(res?.data)
         return res?.data
     } catch (e) {
@@ -85,6 +87,26 @@ const personal_profile = async () => {
     }
 }
 
+const add_user = async (status, data) => {
+   try {
+        const res = await api.post(`/account/add-user/${status}`, data);
+        console.log(res)
+        return res?.data;
+   } catch (e) {
+        console.log(e.response?.data?.message)
+        throw new Error(e.response?.data?.message)
+   }
+}
+
+const role_allocation = async (userId, data) => {
+    try {
+        const res = await api.put(`/account/role/${userId}`, data);
+        return res?.data
+    } catch (e) {
+        throw new Error(e.response?.data?.message)
+    }
+}
+
 export {
     change_Password,
     deactivate_User,
@@ -93,5 +115,7 @@ export {
     user_Profile,
     forget_password,
     reset_password,
-    personal_profile
+    personal_profile,
+    add_user,
+    role_allocation
 }

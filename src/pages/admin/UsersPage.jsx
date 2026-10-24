@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router'
 import Deactivate from '../../components/profile/Deactivate'
 import StatCards from '../../components/cards/StatCards'
 import AddUserModal from '../../components/users/AddUserModal'
+import { useAuth } from '../../context/AuthContext'
+import UserRole from '../../components/users/UserRole'
 
 const UsersPage = () => {
     const [page, setPage] = useState(1);
@@ -21,6 +23,8 @@ const UsersPage = () => {
     const [user, setUser] = useState(null);
     const [isStaffModal, setIsStaffModal] = useState(false)
     const [isStudentModal, setIsStudentModal] = useState(false)
+    const [isUserRoleModal, setIsUserRoleModal] = useState(false)
+    
 
     const { data: userData, isLoading, isPending } = useQuery({
         queryKey: ['user', page, pageSize, search],
@@ -59,6 +63,12 @@ const UsersPage = () => {
        const getUser = users?.users.find((u) => u._id === id)
         setUser(getUser)
         setIsDeactivateModal(true)
+    } 
+
+    const handleRole = (id) => {
+       const getUser = users?.users.find((u) => u._id === id)
+        setUser(getUser)
+        setIsUserRoleModal(true)
     } 
 
     const handleSearch = (searchValue) => {
@@ -148,7 +158,7 @@ const UsersPage = () => {
           <Eye size={15} />
         </button>
         <button
-          onClick={() => handleActivation(row._id)}
+          onClick={() => handleRole(row._id)}
           className={`p-1.5  rounded-lg transition cursor-pointer text-indigo-600 hover:bg-indigo-100`}
           title="Settigs Session"
         >
@@ -156,11 +166,11 @@ const UsersPage = () => {
         </button>
         <button
           onClick={() => handleActivation(row._id)}
-          className={`p-1.5  rounded-lg transition cursor-pointer ${row.isActive? 'text-green-600 hover:bg-green-50' : 'text-red-600 hover:bg-red-50'}`}
+          className={`p-1.5  rounded-lg transition cursor-pointer ${row.active? 'text-green-600 hover:bg-green-50' : 'text-red-600 hover:bg-red-50'}`}
           title="Settigs Session"
         >
           {
-            row.isActive? 
+            row.active? 
             <CheckCircle2Icon size={15} /> :
             <XCircleIcon size={15} />
           }
@@ -212,15 +222,15 @@ const UsersPage = () => {
                 </button>
             </div>
             <Table
-            columns={columns}
-            data={users?.users}
-            onChangePage={handlePage}
-            onChangeRowsPerPage={handlePageSize} 
-            page={page}
-            pageSize={pageSize}
-            onSearch={handleSearch}
-            paginationTotalRows={users?.total || 1}
-             progressPending={isLoading}
+                columns={columns}
+                data={users?.users}
+                onChangePage={handlePage}
+                onChangeRowsPerPage={handlePageSize} 
+                page={page}
+                pageSize={pageSize}
+                onSearch={handleSearch}
+                paginationTotalRows={users?.total || 1}
+                progressPending={isLoading}
             />
         </div>
     </div>
@@ -261,6 +271,15 @@ const UsersPage = () => {
                 children={<AddUserModal
                     onClose={() => setIsStudentModal(false)}
                     type='student'
+                    />}
+            />
+
+            <Modal 
+            isOpen={isUserRoleModal}
+            onClose={() => setIsUserRoleModal}
+                children={<UserRole
+                    onClose={() => setIsUserRoleModal(false)}
+                    user={user}
                     />}
             />
         </div>

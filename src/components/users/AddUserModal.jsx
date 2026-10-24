@@ -1,8 +1,9 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Calendar, FolderArchive, FolderEdit, Mail, MapPin, Phone, Save, User, UserPlus2, X } from 'lucide-react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { add_user } from '../../services/userApi'
 
 const AddUserModal = ({ onClose, type }) => {
 
@@ -22,24 +23,23 @@ const AddUserModal = ({ onClose, type }) => {
             {name: 'last_name', label: 'Last Name', type: 'text', logo: <User size={18} />},
             {name: 'email', label: 'Email', type: 'email', logo: <Mail size={18} />},
             {name: 'phone_number', label: 'Phone Number', type: 'text', logo: <Phone size={18} />},
-            {name: 'dob', label: 'D.O.B', type: 'date', logo: <Calendar size={18} />},
-            {name: 'state_Of_Origin', label: 'State of Origin', type: 'text', logo: <MapPin size={18} />},
-            {name: 'next_Of_Kin', label: 'Next of Kin', type: 'text', logo: <User size={18} />},
-            {name: 'next_Of_Kin_Number', label: 'Next of Kin Phone Number', type: 'number', logo: <Phone size={18} />}
         ]
 
+    const queryClient = useQueryClient()
     const mutation = useMutation({
+        mutationFn: (data) => add_user(type, data),
         onSuccess: (res) => {
+            queryClient.invalidateQueries({ queryKey: ['user'] })
             toast.success(res?.message)
             handleClose()
         },
         onError: (e) => {
-            toast.error(e)
+            toast.error(e?.message)
         }
     })
 
-    const onSubmit = () => {
-        mutation.mutate()
+    const onSubmit = (data) => {
+        mutation.mutate(data)
     }
 
     const handleClose = () => {
@@ -65,7 +65,7 @@ const AddUserModal = ({ onClose, type }) => {
             onSubmit={handleSubmit(onSubmit)}
             >
 
-                <div className='grid grid-cols-1 lg:grid-cols-2 gap-2 h-[50vh] w-full overflow-scroll scrollbar-none p-2'>
+                <div className='grid grid-cols-1 lg:grid-cols-2 gap-2 w-full overflow-scroll scrollbar-none p-2'>
                     {
                     fields.map((item) => (
                         <div key={item.name} className='grid grid-cols-1 gap-2'>

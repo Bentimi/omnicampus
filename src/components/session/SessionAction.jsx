@@ -18,9 +18,11 @@ const SessionAction = ({ session, onClose }) => {
             toast.error(err?.message)
         }
     })
+    
     const handleBtn = (sessionId) => {
         mutation.mutate(sessionId)
     }
+
   return (
     <div className='flex flex-col space-y-6 w-[20em]'>
         <div className='text-red-600 flex justify-center items-center'>
