@@ -3,12 +3,12 @@ import { data, Link, useNavigate } from 'react-router';
 import logo from '../assets/logo.png';
 import { useForm, useWatch } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { X, Check, Eye, EyeOff, Lock, User, Mail } from 'lucide-react';
+import { X, Check, Eye, EyeOff, Lock, User, Mail, LogIn } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
 
 const LoginPage = () => {
-    const { register, handleSubmit, formState, control } = useForm({ mode: 'onChange' });
+    const { register, handleSubmit, formState, control, reset } = useForm({ mode: 'onChange' });
     const { errors, isSubmitted } = formState;
     const { login } = useAuth();
     const [ showPassword, setShowPassword ] = useState(false);
@@ -18,11 +18,14 @@ const LoginPage = () => {
     const mutation = useMutation({
         mutationFn: (data) => login(data),
         onSuccess: (res) => {
-            toast.success("User logged in");
-
-            console.log(res?.role)
-            if (res?.role === 'user') {
+            toast.success(res?.message);
+            reset();
+            if (res?.data?.user?.role === 'user') {
                 navigate('/user/dashboard')
+            } else if (res?.data?.user?.role === 'admin') {
+                navigate('/user/dashboard')
+            } else if (res?.data?.user?.role === 'student') {
+                navigate('/user/profile')
             }
         },
         onError: (err) => {
@@ -62,6 +65,7 @@ const LoginPage = () => {
                         {...register('credentials', 
                             {
                                 required: "Email is required",
+                                setValueAs: (value) => (typeof value === "string" ? value.trim() : value.trim()),
                                 pattern: {
                                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                                     message: "Invalid email address"
@@ -89,6 +93,7 @@ const LoginPage = () => {
                         {...register('password', 
                             {
                                 required: "Password is required",
+                                setValueAs: (value) => (typeof value === "string" ? value.trim() : value.trim())
                             }
                         )} 
                         />
@@ -110,10 +115,12 @@ const LoginPage = () => {
                             Forget Password?
                         </Link>
                     </div>
-                    <button className='bg-omni-accent dark:bg-omni-navy hover:bg-omni-accent/85 dark:hover:bg-omni-navy/85 cursor-pointer dark:text-omni-light w-[20em] h-10 rounded-lg transition-colors duration-200 ease-in-out font-semibold flex justify-center items-center' type="submit"
+                    <button className={`bg-omni-accent dark:bg-omni-navy hover:bg-omni-accent/85 dark:hover:bg-omni-navy/85 dark:text-omni-light w-[20em] h-10 rounded-lg transition-colors duration-200 ease-in-out font-semibold flex justify-center items-center gap-2 text-omni-light ${
+                        mutation.isPending? 'cursor-not-allowed' : 'cursor-pointer'
+                    }`} type="submit"
                     disabled={mutation.isPending}>
-                        {mutation.isPending ? 
-                            <div className='border-2 border-omni-navy dark:border-omni-light border-t-omni-light dark:border-t-omni-navy animate-spin h-5 w-5 rounded-full'></div>
+                         {!mutation.isPending && (<LogIn />)}{mutation.isPending ? 
+                            <div className='border-2 border-omni-light border-t-omni-navy animate-spin h-5 w-5 rounded-full'></div>
                         : 'Login'}
                     </button>
                     

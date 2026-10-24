@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 const Hero = () => {
   const heroLinks = [
     {to : '#aboutus', name : 'About Us'},
-    {to : '#contactus', name : 'ContactUs'}
+    {to : '/login', name : 'Get Started'}
   ]
   return (
     <div className='bg-omni-light dark:bg-omni-navy dark:text-omni-light h-screen'>

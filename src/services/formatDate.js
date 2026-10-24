@@ -21,6 +21,10 @@ export const formatDate = (date, type = 'full') => {
         return format(d, 'hh:mm a');
     }
 
+    if (type === 'normal') {
+        return format(d, 'yyyy-MM-dd')
+    }
+
     // default
     return format(d, 'dd MMM yyyy, hh:mm a');
 }

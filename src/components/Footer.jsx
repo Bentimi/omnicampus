@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from '../assets/logo.png';
 import { Link } from 'react-router';
-import { Home, Rss, User, Copyright, Mail, Phone, MapPin } from 'lucide-react';
+import { Home, Rss, User, Copyright, Mail, Phone, MapPin, LogIn, Info } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const Footer = () => {
@@ -21,7 +21,9 @@ const Footer = () => {
     const quickLinks = [
             { name: "Home", to: "/", icon: <Home /> },
             { name: "Blog", to: "/blog", icon: <Rss /> },
-            { name: "ContactUs", to: "/contactus", icon: <User /> }
+            { name: "AboutUs", to: "/aboutus", icon: <Info /> },
+            { name: "ContactUs", to: "/contactus", icon: <User /> },
+            { name: "Login", to: "/login", icon: <LogIn /> }
         ]
 
     const date = new Date();
@@ -33,7 +35,7 @@ const Footer = () => {
         {
             !isAuth && (
                 <div>
-                    <div className='min-h-[4.5em] bg-omni-accent dark:bg-omni-navy flex flex-col md:flex-row justify-start md:justify-between md:items-center px-4 lg:px-16 gap-8 md:gap-1 lg:gap-0 pb-3'>
+                    <div className='min-h-[4.5em] bg-omni-accent dark:bg-omni-navy flex flex-col md:flex-row justify-start md:justify-between md:items-center px-4 lg:px-16 gap-8 md:gap-1 lg:gap-0 pb-3 pt-5 text-omni-light'>
            
            <div>
              <img src={logo} alt="omnicampus-logo" className='h-[12em]'/>
@@ -50,11 +52,11 @@ const Footer = () => {
             
             <div className='flex flex-col md:flex-row gap-5'>
                 <nav>
-                    <h1 className='font-semibold dark:text-omni-light'>Qiuck Links</h1>
-                    <ul className='flex flex-col gap-4'>
+                    <h1 className='font-semibold dark:text-omni-light text-center'>Qiuck Links</h1>
+                    <ul className='grid grid-cols-2 gap-1 p-1'>
                 {
                     quickLinks.map(link => (
-                        <Link key={link.name} to={link.to} className='flex gap-2 items-center hover:text-omni-navy transform transition-colors delay-100 ease-in-out cursor-pointer w-34 p-3 rounded-lg font-semibold hover:bg-gray-50/50 dark:text-omni-light'>{link.icon}{link.name}</Link>
+                        <Link key={link.name} to={link.to} className='flex gap-2 items-center hover:text-white transform transition-colors delay-100 duration-300 ease-in-out cursor-pointer w-34 p-3 rounded-lg font-semibold hover:bg-white/10 dark:text-omni-light'>{link.icon}{link.name}</Link>
                     ))
                 }
             </ul>
@@ -65,7 +67,7 @@ const Footer = () => {
                     <ul className='flex gap-2'>
                     {
                     socialLinks.map(link => (
-                        <Link key={link.name} to={link.to} className='flex gap-2 items-center hover:text-omni-navy transform transition-colors delay-100 ease-in-out cursor-pointer p-3 rounded-lg font-semibold hover:bg-gray-50/50 dark:text-omni-light border-2 dark:border-omni-light'>{link.icon}</Link>
+                        <Link key={link.name} to={link.to} className='flex gap-2 items-center text-white transform transition-colors delay-100 duration-700 ease-in-out cursor-pointer p-3 rounded-lg font-semibold hover:bg-white/10 dark:text-omni-light border-2 dark:border-omni-light'>{link.icon}</Link>
                     ))
                 }
                 </ul>
@@ -77,7 +79,7 @@ const Footer = () => {
         <div className='px-8 py-4'>
              <hr className='border-omni-light' />
         </div>
-            <h2 className='flex items-center justify-center px-4 h-[4em] dark:text-omni-light gap-2 font-semibold text-[1em]'>
+            <h2 className='flex items-center justify-center px-4 h-[4em] text-omni-light gap-2 font-semibold text-[1em]'>
                 <Copyright /> {getYear} Big-B. All rights reserved.
             </h2>
          </div>

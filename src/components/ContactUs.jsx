@@ -1,5 +1,5 @@
 import React from 'react'
-import { Mail, Phone, MapPin, FaceNeutral } from 'lucide-react'
+import { Mail, Phone, MapPin, FaceNeutral, User, Smartphone, Captions } from 'lucide-react'
 import { Link } from 'react-router'
 
 const ContactUs = ({id}) => {
@@ -26,28 +26,53 @@ const ContactUs = ({id}) => {
                <form action="" className='flex flex-col justify-center gap-4'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                     <div className='flex flex-col gap-1'>
-                        <label htmlFor="first_name">First Name </label>
-                        <input id='first_name' name='first_name' type="text" placeholder='Enter First Name' className='w-full input' />
+                        <label htmlFor="first_name" className='label'>First Name </label>
+                        <div className='input-border'>
+                            <span className='input-container'>
+                                <User size={18} />
+                                <input id='first_name' name='first_name' type="text" placeholder='Enter First Name' className='off-input w-full' />
+                            </span>
+                        </div>
                     </div>
                     <div className='flex flex-col gap-1'>
-                        <label htmlFor="last_name">Last Name </label>
-                        <input id='last_name' name='last_name' type="text" placeholder='Enter Last Name' className='w-full input' />
+                        <label htmlFor="last_name" className='label'>Last Name </label>
+                        <div className='input-border'>
+                            <span className='input-container'>
+                                <User size={18} />
+                                <input id='last_name' name='last_name' type="text" placeholder='Enter Last Name' className='off-input w-full' />
+                            </span>
+                        </div>
                     </div>
                     <div className='flex flex-col gap-1'>
-                        <label htmlFor="email">Email </label>
-                        <input id='email' name='email' type="email" placeholder='Enter your Email' className='w-full input' />
+                        <label htmlFor="email" className='label'>Email </label>
+                        <div className='input-border'>
+                            <span className='input-container'>
+                                <Mail size={18} />
+                                <input id='email' name='email' type="email" placeholder='Enter your Email' className='off-input w-full' />
+                            </span>
+                        </div>
                     </div>
                     <div className='flex flex-col gap-1'>
-                        <label htmlFor="phone">Phone </label>
-                        <input id='phone' name='phone' type="number" placeholder='Enter Phone Number' className='w-full input' />
+                        <label htmlFor="phone" className='label'>Phone </label>
+                        <div className='input-border'>
+                            <span className='input-container'>
+                                <Smartphone size={18} />
+                                <input id='phone' name='phone' type="number" placeholder='Phone Number' className=' off-input w-full' />
+                            </span>
+                        </div>
                     </div>
                     <div className='flex flex-col col-span-full gap-1'>
-                        <label htmlFor="phone">Phone </label>
-                        <input id='phone' name='phone' type="number" placeholder='Enter Phone Number' className='w-full input' />
+                        <label htmlFor="subject" className='label'>Subject </label>
+                        <div className='input-border'>
+                            <span className="input-container">
+                                <Captions size={18} />
+                                <input id='subject' name='subject' type="text" placeholder='Enter Subject' className='off-input w-full' />
+                            </span>
+                        </div>
                     </div>
                     <div className='flex flex-col col-span-full gap-1'>
-                        <label htmlFor="message">Message </label>
-                        <textarea name="" id="" rows="5" className='border-2 border-gray-300 p-2 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-3 focus:ring-omni-accent/20 dark:focus:ring-omni-navy/20 focus:border-omni-accent dark:focus:border-omni-navy w-full' placeholder='Enter your Message here...'></textarea>
+                        <label htmlFor="message" className='label'>Message </label>
+                        <textarea name="message" id="message" rows="5" className='border-2 border-gray-300 p-2 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-3 focus:ring-omni-accent/20 dark:focus:ring-omni-navy/20 focus:border-omni-accent dark:focus:border-omni-navy w-full' placeholder='Enter your Message here...'></textarea>
                     </div>
 
                     </div>
