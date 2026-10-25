@@ -26,6 +26,8 @@ const LoginPage = () => {
                 navigate('/user/dashboard')
             } else if (res?.data?.user?.role === 'student') {
                 navigate('/user/profile')
+            } else {
+                navigate('/user/profile')
             }
         },
         onError: (err) => {

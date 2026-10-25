@@ -5,14 +5,17 @@ import { useQuery } from '@tanstack/react-query';
 import { user_Profile } from '../../services/userApi';
 import { div } from 'motion/react-client';
 import Loading from '../../components/Spinner/Loading';
+import { useParams } from 'react-router';
 
 const ProfilePage = () => {
     const { user } = useAuth();
     const [isOpenModal, setIsOpenModal] = useState(false)
     const [isUser, setIsUser] = useState(null)
 
+    const { id }= useParams()
+    const userId = id || user?._id
     
-    const userId = user?._id
+    // const userId = user?._id
     // console.log(userId)
     const { data: userData, isLoading, isPending } = useQuery({
         queryKey: ['user', userId],

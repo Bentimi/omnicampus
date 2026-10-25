@@ -17,9 +17,12 @@ import ChangePassword from '../pages/general/ChangePassword';
 import Settings from '../pages/general/Settings';
 import EditProfilePage from '../pages/general/EditProfilePage';
 import SessionPage from '../pages/admin/SessionPage';
+import FacultyPage from '../pages/admin/FacultyPage';
 import AddUser from '../pages/admin/AddUser';
 import UsersPage from '../pages/admin/UsersPage';
 import ResetPassword from '../pages/ResetPassword';
+import CoursesPage from '../pages/admin/CoursesPage';
+import DepartmentPage from '../pages/admin/DepartmentPage';
 
 
 const queryClient = new QueryClient();
@@ -31,19 +34,18 @@ const LandingPageRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<AppLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path='/blog' element={<Blog />} />
-        <Route path='/contactus' element={<ContactUs />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/signup' element={<SignUpPage />} />
-        <Route path='/forget-password' element={<ForgetPassword />} />
-        <Route path='/user/reset-password' element={<ResetPassword />} />
-        <Route path='/unauthorized' element={<UnauthorizedPage />} />
-        <Route path='*' element={<NotFoundPage />} />
+          <Route index element={<HomePage />} />
+          <Route path='blog' element={<Blog />} />
+          <Route path='contactus' element={<ContactUs />} />
+          <Route path='login' element={<LoginPage />} />
+          <Route path='signup' element={<SignUpPage />} />
+          <Route path='forget-password' element={<ForgetPassword />} />
+          <Route path='user/reset-password' element={<ResetPassword />} />
+          <Route path='unauthorized' element={<UnauthorizedPage />} />
 
-      {/* General */}
+      {/* General Routes */}
         <Route 
-          path='/user/dashboard' 
+          path='user/dashboard' 
           element={
             <ProtectedRoutes allowedRoles={['admin', 'user']}>
               <Dashboard />
@@ -51,7 +53,7 @@ const LandingPageRoutes = () => {
           } />
 
         <Route
-          path='/user/profile'
+          path='user/profile'
           element={
             <ProtectedRoutes allowedRoles={['user', 'student', 'principal', 'staff', 'admin', 'aspirant']}>
               <ProfilePage />
@@ -59,7 +61,7 @@ const LandingPageRoutes = () => {
           }
         />
         <Route
-          path='/user/change-password'
+          path='user/change-password'
           element={
             <ProtectedRoutes allowedRoles={['user', 'student', 'principal', 'staff', 'admin', 'aspirant']}>
               <ChangePassword />
@@ -67,7 +69,7 @@ const LandingPageRoutes = () => {
           }
         />
         <Route
-          path='/user/settings'
+          path='user/settings'
           element={
             <ProtectedRoutes allowedRoles={['user', 'student', 'principal', 'staff', 'admin', 'aspirant']}>
               <Settings />
@@ -75,7 +77,7 @@ const LandingPageRoutes = () => {
           }
         />
         <Route
-          path='/user/edit-profile'
+          path='user/edit-profile'
           element={
             <ProtectedRoutes allowedRoles={['user', 'student', 'principal', 'staff', 'admin', 'aspirant']}>
               <EditProfilePage />
@@ -85,9 +87,10 @@ const LandingPageRoutes = () => {
 
 
         {/* Admin Routes */}
-
+        
+        {/* Session Route */}
         <Route
-          path='/session'
+          path='session'
           element={
             <ProtectedRoutes allowedRoles={['admin']}>
               <SessionPage />
@@ -96,7 +99,7 @@ const LandingPageRoutes = () => {
         />
 
         <Route
-          path='/user/add-user'
+          path='user/add-user'
           element={
             <ProtectedRoutes allowedRoles={['admin']}>
               <AddUser />
@@ -104,7 +107,7 @@ const LandingPageRoutes = () => {
           }
         />
         <Route
-          path='/users'
+          path='users'
           element={
             <ProtectedRoutes allowedRoles={['admin']}>
               <UsersPage />
@@ -112,7 +115,7 @@ const LandingPageRoutes = () => {
           }
         />
         <Route
-          path='/user/profile/:id'
+          path='user/profile/:id'
           element={
             <ProtectedRoutes allowedRoles={['admin']}>
               <ProfilePage />
@@ -120,7 +123,35 @@ const LandingPageRoutes = () => {
           }
         />
 
+        {/* Faculties, Departments and Courses */}
+          <Route
+          path='faculty'
+          element={
+            <ProtectedRoutes allowedRoles={['admin']}>
+              <FacultyPage />
+            </ProtectedRoutes>
+          }
+        />
+          <Route
+          path='department'
+          element={
+            <ProtectedRoutes allowedRoles={['admin', 'principal']}>
+              <DepartmentPage />
+            </ProtectedRoutes>
+          }
+        />
+          <Route
+          path='courses'
+          element={
+            <ProtectedRoutes allowedRoles={['admin', 'principal']}>
+              <CoursesPage />
+            </ProtectedRoutes>
+          }
+        />
+
         </Route>
+          {/* Page not found */}
+          <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
     </QueryClientProvider>

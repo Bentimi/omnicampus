@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Table from '../../components/Table'
 import { useQuery } from '@tanstack/react-query'
 import { get_Users } from '../../services/userApi'
-import { CheckCircle2Icon, Edit, Eye, Settings2, Shield, SwordIcon, SwordsIcon, UserCircle, UserPenIcon, UserPlus2, Users2Icon, XCircleIcon } from 'lucide-react'
+import { CheckCircle2Icon, Edit, Eye, GraduationCapIcon, Settings2, Shield, UserCircle, UserCog2Icon, UserPenIcon, UserPlus2, UserRoundGroupIcon, UserRoundKey, Users, Users2Icon, UserSearchIcon, UserShieldIcon, UsersRoundIcon, XCircleIcon } from 'lucide-react'
 import Modal from '../../components/Modal'
 import EditModal from '../../components/profile/EditModal'
 import { useNavigate } from 'react-router'
@@ -191,16 +191,29 @@ const UsersPage = () => {
     const handleAddStaffModal = () => {
         setIsStaffModal(true)
     }
+
+    // console.log(users?.users)
+
+    const lecturers = users?.users.filter(u => u.role === 'lecturer').length
+    const students = users?.users.filter(u => u.role === 'student').length
+    const admins = users?.users.filter(u => u.role === 'admin').length
+    const aspirants = users?.users.filter(u => u.role === 'aspirant').length
+    const principals = users?.users.filter(u => u.role === 'principal').length
+    const staffs = users?.users.filter(u => u.role === 'staff').length
+    const totalUsers = users?.users.filter(u => u.role === 'user').length
   return (
     <>
     <div className='bg-omni-light dark:bg-omni-navy p-5 flex flex-col space-y-20 min-h-screen'>
 
         <div className='flex justify-center'>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mx-auto'>
-            <StatCards title='Lecturer' icon={<Users2Icon color='orange' size={50} />} number={20} text='text-orange-400' />
-            <StatCards title='Students' icon={<Users2Icon color='indigo' size={50} />} number={20} text='text-indigo-900' />
-            <StatCards title='Security' icon={<Shield color='red' size={50} />} number={20} text='text-red-600' />
-            <StatCards title='Admin' icon={<SwordsIcon color='green' size={50} />} number={20} text='text-green-600' />
+            <StatCards title='Admin' icon={<UserShieldIcon  color='green' size={50} />} number={admins} text='text-green-600' />
+            <StatCards title='Aspirants' icon={<UserSearchIcon color='red' size={50} />} number={aspirants} text='text-red-600' />
+            <StatCards title='Lecturer' icon={<Users2Icon color='orange' size={50} />} number={lecturers} text='text-orange-400' />
+            <StatCards title='Staff' icon={<Users color='indigo' size={50} />} number={staffs} text='text-indigo-900' />
+            <StatCards title='Students' icon={<GraduationCapIcon color='indigo' size={50} />} number={students} text='text-indigo-900' />
+            <StatCards title='Principal' icon={<UserRoundKey color='green' size={50} />} number={principals} text='text-green-600' />
+            <StatCards title='User' icon={<UserRoundGroupIcon color='orange' size={50} />} number={totalUsers} text='text-orange-600' />
         </div>
         </div>
 
