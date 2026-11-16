@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { Building, Mail, Phone, User, X } from "lucide-react"
+import { Building, Mail, Phone, Save, User, X } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { addFaculty } from "../../services/facultyApi"
 import { toast } from "react-toastify"
+import Spinner from "../Spinner"
 
 
 const AddFaculty = ({ onClose, status }) => {
@@ -58,6 +59,7 @@ const AddFaculty = ({ onClose, status }) => {
             <div>
                 <form 
             onSubmit={handleSubmit(onSubmit)}
+            className='flex justify-center flex-col gap-2 w-full'
             >
 
                 <div className='grid grid-cols-1 gap-2 w-full overflow-scroll scrollbar-none p-2'>
@@ -86,10 +88,16 @@ const AddFaculty = ({ onClose, status }) => {
                 }
                 </div>
 
-                    <div>
-                        <button type="submit"
-                        >{status === 'add' ? 'Add Faculty' : 'Update' }</button>
-                    </div>
+                    {/* <div> */}
+                        <button 
+                                        disabled={mutation.isPending}
+                                        type="submit"
+                                        className="bg-omni-accent p-3 rounded-lg font-semibold text-omni-light flex justify-center gap-2 items-center h-10 cursor-pointer w-[18.5em] mx-auto"> {mutation.isPending ?  (<span className="flex items-center gap-2"><Spinner /> {status === 'add'? 'Saving' : 'Updating'}</span> ): ((status === 'add')? <span className="flex items-center gap-1"><Save size={18} /> {status === 'add' &&'Add Faculty'}</span> : <span className="flex items-center gap-1"><Save size={18} /> {status !== 'add' && 'Update Faculty'}</span>)}
+                                        </button>
+                        {/* <button type="submit"
+                        className="bg-omni-accent w-full flex justify-center items-center h-10 p-3 font-semibold text-white rounded-md shadow-md cursor-pointer"
+                        >{status === 'add' ? 'Add Faculty' : 'Update' }</button> */}
+                    {/* </div> */}
                 </form>
             </div>
             </div>
