@@ -7,12 +7,15 @@ import AddFaculty from '../../components/faculty/AddFaculty';
 import { formatDate } from '../../services/formatDate';
 import { Activity, ActivityIcon, CheckCircle, CheckCircle2Icon, Edit2Icon, Eye, Sigma, Trash2Icon, X, XCircleIcon } from 'lucide-react';
 import StatCards from '../../components/cards/StatCards';
+import ViewFaculty from '../../components/faculty/ViewFaculty';
 
 
 const FacultyPage = () => {
 
   const [isFaculty, setIsFaculty] = useState(null)
   const [isAddFacultyModal, setIsAddFacultyModal] = useState(false)
+  const [isViewFacultyModal, setIsViewFacultyModal] = useState(false)
+  const [isFacultyItem, setIsFacultyItem] = useState(null)
   const [isStatus, setIsStatus] = useState('')
 
   const columnHeader = ['s/n', 'Name', 'Status', 'CreatedAt', 'Actions']
@@ -38,12 +41,16 @@ const FacultyPage = () => {
 
   // console.log(faculty_Data)
 
-  const handleView = (name) => {
-    alert(name)
+  const handleView = (data) => {
+    // const data = isFacult?.sessions.find((item) => item._id === id)
+    setIsViewFacultyModal(true)
+    setIsFacultyItem(data)
+    // console.log(isFacultyItem)
   }
 
-  const handleEdit = (name, id) => {
-    alert(name +' '+id)
+  const handleEdit = (data) => {
+    setIsStatus('edit')
+    setIsAddFacultyModal(data)
   }
 
   const tableData = faculty_Data.map((d, i) => ({
@@ -61,14 +68,14 @@ const FacultyPage = () => {
       actions: (
         <div className='flex gap-1'>
           <button 
-          onClick={() => handleEdit(d?.faculty, d?._id)}
+          onClick={() => handleEdit(d)}
           type="button"
           className='cursor-pointer text-blue-400 hover:bg-blue-100 p-1 rounded-lg'
           >
             <Edit2Icon size={18} />
           </button>
           <button 
-          onClick={() => handleView(d?.faculty)}
+          onClick={() => handleView(d)}
           type="button"
           className='cursor-pointer text-green-400 hover:bg-green-100 p-1 rounded-lg'
           ><Eye size={18} /></button>
@@ -122,6 +129,15 @@ const FacultyPage = () => {
         children={<AddFaculty
           onClose={() => setIsAddFacultyModal(false)}
           status={isStatus}
+          />}
+        />
+
+        <Modal
+        isOpen={isViewFacultyModal}
+        onClose={() => setIsViewFacultyModal(false)}
+        children={<ViewFaculty
+          onClose={() => setIsViewFacultyModal(false)}
+          data={isFacultyItem}
           />}
         />
       </div>
