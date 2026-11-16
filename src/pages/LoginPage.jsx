@@ -6,6 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import { X, Check, Eye, EyeOff, Lock, User, Mail, LogIn } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
+import { motion } from 'framer-motion';
 
 const LoginPage = () => {
     const { register, handleSubmit, formState, control, reset } = useForm({ mode: 'onChange' });
@@ -39,9 +40,24 @@ const LoginPage = () => {
         mutation.mutate(data)
     }
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.5 } }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 16 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } }
+    };
+  
+
   return (
     <>
-        <div className='grid grid-cols-1 lg:grid-cols-2 items-center justify-center w-fit md:w-3/5 min-h-[85vh] mx-auto py-10 px-3 md:px-0'>
+        <motion.div
+        variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+        className='grid grid-cols-1 lg:grid-cols-2 items-center justify-center w-fit md:w-3/5 min-h-[85vh] mx-auto py-10 px-3 md:px-0'>
             <div className='bg-omni-accent dark:bg-omni-navy dark:text-omni-light flex flex-col items-center justify-center p-6 h-full'>
                 <div>
                     <img src={logo} alt="logo" className='h-[16em]'/>
@@ -136,7 +152,7 @@ const LoginPage = () => {
                     </div>
                 </form>
             </div>
-        </div>
+        </motion.div>
     </>
   )
 }

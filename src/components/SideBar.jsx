@@ -47,7 +47,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
         {title: 'All Users', to: '/users', icon: <Users2Icon size={12} />},
         {title: 'Add User', to: '/user/add-user', icon: <UserPlus2Icon size={12} />},
       ]},
-      {name: 'Course', logo: <BookCopy size={18} />, content: [
+      {name: 'College', logo: <BookCopy size={18} />, content: [
         {title: 'Faculty', to: '/faculty', icon: <Building size={12} />},
         {title: 'Department', to: '/department', icon: <Building size={12} />},
         {title: 'Courses', to: '/courses', icon: <BookCopy size={12} />}

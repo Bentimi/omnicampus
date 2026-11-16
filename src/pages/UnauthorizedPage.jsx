@@ -27,19 +27,19 @@ const UnauthorizedPage = () => {
             
              <div className='grid grid-cols-2 gap-2'>
             <button 
-          type="button"
-          className='bg-green-900 text-white w-full p-2 rounded-lg cursor-pointer hover:bg-green-800 flex items-center justify-center gap-2 text-lg font-semibold'
-          onClick={handleGoBack}
-        >
-         <ArrowLeft /> Go back
-        </button>
-        <button 
-          type="button"
-          className='bg-orange-900 text-white w-full p-2 rounded-lg cursor-pointer hover:bg-orange-800 flex items-center justify-center gap-2 text-lg font-semibold'
-          onClick={handleLogout}
-        >
-         <LogOut /> Logout
-        </button>
+              type="button"
+              className='bg-green-900 text-white w-full p-2 rounded-lg cursor-pointer hover:bg-green-800 flex items-center justify-center gap-2 text-lg font-semibold'
+              onClick={handleGoBack}
+              >
+              <ArrowLeft /> Go back
+            </button>
+            <button 
+              type="button"
+              className='bg-orange-900 text-white w-full p-2 rounded-lg cursor-pointer hover:bg-orange-800 flex items-center justify-center gap-2 text-lg font-semibold'
+              onClick={handleLogout}
+            >
+            <LogOut /> Logout
+          </button>
           </div>
             
           </div>
