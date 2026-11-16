@@ -4,6 +4,7 @@ const getFaculties = async () => {
     try {
         const res = await api.get(`/faculty/`);
         const msg = res?.data?.message;
+        // console.log(res?.data)
         return res?.data
     } catch (e) {
         const err = e.response?.data?.message;

@@ -24,7 +24,7 @@ const FacultyPage = () => {
     queryFn: () => getFaculties()
   })
 
-  // console.log(facultyData?.data)
+  console.log(facultyData?.data)
 
   useEffect(() => {
     if (facultyData) {
@@ -94,16 +94,13 @@ const FacultyPage = () => {
       <div className='p-6'>
         <div className='flex justify-center'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 space-y-3 space-x-2 p-2 justify-start'>
-            <StatCards number={10} text='text-green-800' 
+            <StatCards number={isFaculty?.activeTotal} text='text-green-800' 
             icon={<CheckCircle2Icon color='green' size={50} />} title='Active'
             />
-            <StatCards number={10} text='text-red-600' 
+            <StatCards number={isFaculty?.inActiveTotal} text='text-red-600' 
             icon={<XCircleIcon color='red' size={50} />} title='Inactive'
             />
-            <StatCards number={10} text='text-primary-600' 
-            icon={<Sigma color='blue' size={50} />} title='Total'
-            />
-            <StatCards number={10} text='text-primary-600' 
+            <StatCards number={isFaculty?.total} text='text-primary-600' 
             icon={<Sigma color='blue' size={50} />} title='Total'
             />
           </div>
