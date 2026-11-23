@@ -150,7 +150,7 @@ const TableWrapper = ({ header=[], keys=[], tableData=[], loading }) => {
             <ChevronLeft size={16} />
           </button>
               </li>
-              <li className="dark:text-gray-200">
+              <li className="dark:text-gray-200 flex gap-1">
                 {getCompactPages(safePage, totalPages, 2).map((item, idx) =>
             item === "..." ? (
               <span key={`dots-${idx}`} className="px-2 py-1 text-gray-400 select-none">
@@ -164,7 +164,7 @@ const TableWrapper = ({ header=[], keys=[], tableData=[], loading }) => {
                 className={`w-8 h-8 rounded-md font-semibold text-sm ${
                   safePage === item
                     ? "bg-amber-500 text-white"
-                    : "bg-slate-800 text-gray-200 hover:bg-slate-700"
+                    : "bg-transparent0 text-gray-400 hover:bg-transparent"
                 }`}
               >
             {item}
