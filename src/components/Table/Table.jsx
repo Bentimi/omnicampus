@@ -13,6 +13,7 @@ const Table = ({ header=[], keys={}, tableData=[], loading }) => {
               header.map((col, i) => (
                 <th
                  key={i}
+                 className="text-left p-3"
                  >{col}</th>
               )) 
             }
@@ -22,7 +23,7 @@ const Table = ({ header=[], keys={}, tableData=[], loading }) => {
               {
                 loading ? <tr className="text-xl">
                   <td colSpan={header.length} className="">
-                    <div className="flex flex-col justify-center items-center w-full min-h-[35vh]">
+                    <div className="flex flex-col justify-center items-center w-full min-h-[30vh] lg:min-h-[45vh]">
                       <Spinner />
                       <span>fetching data...</span>
                     </div>
@@ -38,7 +39,7 @@ const Table = ({ header=[], keys={}, tableData=[], loading }) => {
                     {
                       keys.map((keyName, index) => (
                         
-                        <td key={index}>{data[keyName]}</td>
+                        <td key={index} className="p-3 text-left">{data[keyName]}</td>
                       ))
                     }
                     </tr>
@@ -46,7 +47,7 @@ const Table = ({ header=[], keys={}, tableData=[], loading }) => {
                   
                  : <tr className="text-3xl">
                   <td colSpan={header.length} className="">
-                    <div className="flex flex-col justify-center items-center w-full min-h-[35vh]">
+                    <div className="flex flex-col justify-center items-center w-full min-h-[30vh] lg:min-h-[45vh]">
                       <Folder size={100} /> 
                       <span>No record found</span>
                     </div>
