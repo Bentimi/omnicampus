@@ -8,6 +8,7 @@ import { formatDate } from '../../services/formatDate';
 import { Activity, ActivityIcon, CheckCircle, CheckCircle2Icon, Edit2Icon, Eye, Sigma, Trash2Icon, X, XCircleIcon } from 'lucide-react';
 import StatCards from '../../components/cards/StatCards';
 import ViewFaculty from '../../components/faculty/ViewFaculty';
+import FacultyStatusModal from '../../components/faculty/FacultyStatusModal';
 
 
 const FacultyPage = () => {
@@ -27,7 +28,7 @@ const FacultyPage = () => {
     queryFn: () => getFaculties()
   })
 
-  console.log(facultyData?.data)
+  // console.log(facultyData?.data)
 
   useEffect(() => {
     if (facultyData) {
@@ -81,7 +82,7 @@ const FacultyPage = () => {
           className='cursor-pointer text-green-400 hover:bg-green-100 p-1 rounded-lg'
           ><Eye size={18} /></button>
           <button 
-          onClick={() => handleView(d?.faculty)}
+          onClick={() => handleView(d)}
           type="button"
           className='cursor-pointer text-red-400 hover:bg-red-100 p-1 rounded-lg'
           ><Trash2Icon size={18} /></button>
@@ -138,6 +139,15 @@ const FacultyPage = () => {
         isOpen={isViewFacultyModal}
         onClose={() => setIsViewFacultyModal(false)}
         children={<ViewFaculty
+          onClose={() => setIsViewFacultyModal(false)}
+          data={isFacultyItem}
+          />}
+        />
+
+        <Modal
+        isOpen={isViewFacultyModal}
+        onClose={() => setIsViewFacultyModal(false)}
+        children={<FacultyStatusModal
           onClose={() => setIsViewFacultyModal(false)}
           data={isFacultyItem}
           />}

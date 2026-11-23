@@ -21,25 +21,39 @@ const addFaculty = async (formData) => {
 
     } catch (e) {
         const err = e.response?.data?.message;
-        console.log(err)
+        // console.log(err)
         throw new Error(err);
     }
 }
 
 const editFaculty = async (facultyId, formData) => {
     try {
-        console.log(facultyId)
+        // console.log(facultyId)
         const res = await api.put(`/faculty/${facultyId}`, formData);
         const msg = res?.data?.message;
         return res?.data
     } catch (e) {
         const err = e.response?.data?.message;
-        console.log(err)
+        // console.log(err)
         throw new Error(err);
     }
 }
+
+const facultyStatus = async (facultyId) => {
+    try {
+        const res = await api.patch(`/faculty/status/${facultyId}`)
+        const msg = res?.data?.message;
+        return res?.data
+    } catch (e) {
+        const err = e.response?.data?.message;
+        // console.log(err)
+        throw new Error(err);
+    }
+}
+
 export {
     getFaculties,
     addFaculty,
-    editFaculty
+    editFaculty,
+    facultyStatus
 }

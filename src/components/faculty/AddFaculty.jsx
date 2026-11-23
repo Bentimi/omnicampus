@@ -16,7 +16,7 @@ const AddFaculty = ({ onClose, status, data }) => {
                 faculty: ''
             }
         })
-        console.log(data)
+        // console.log(data)
     
         useEffect(() => {
             if (status === 'edit' && data) {
