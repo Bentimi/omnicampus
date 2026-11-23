@@ -41,7 +41,7 @@ const FacultyStatusModal = ({ onClose, data }) => {
             </div>    
             <div className='flex gap-3'>
                 <button 
-                className='flex items-center justify-center p-2 gap-2 border w-full rounded-lg border-red-500 text-red-500 hover-bg-red-600 transition-colors transform ease-in-out duration-200 cursor-pointer hover:bg-red-500 hover:text-omni-light font-semibold'
+                className='flex items-center justify-center p-2 gap-2 border w-full rounded-lg border-gray-500 text-gray-500 hover-bg-red-600 transition-colors transform ease-in-out duration-200 cursor-pointer hover:bg-gray-500 hover:text-omni-light font-semibold'
                 type='button'
                 onClick={() => handleClose()}
                 >

@@ -16,19 +16,17 @@ const FacultyPage = () => {
   const [isFaculty, setIsFaculty] = useState(null)
   const [isAddFacultyModal, setIsAddFacultyModal] = useState(false)
   const [isViewFacultyModal, setIsViewFacultyModal] = useState(false)
+  const [isFacultyStatusModal, setIsFacultyStatusModal] = useState(false)
   const [isFacultyItem, setIsFacultyItem] = useState(null)
   const [isStatus, setIsStatus] = useState('')
 
   const columnHeader = ['s/n', 'Name', 'Status', 'CreatedAt', 'Actions']
   const tableKeys = ['sn', 'name', 'status', 'createdAt', 'actions']
-  // const dataTable = 
 
   const { data: facultyData, isLoading, isPending } = useQuery({
     queryKey: ['faculty'],
     queryFn: () => getFaculties()
   })
-
-  // console.log(facultyData?.data)
 
   useEffect(() => {
     if (facultyData) {
@@ -36,17 +34,17 @@ const FacultyPage = () => {
     }
   }, [facultyData])
 
-  // console.log(isFaculty)
-
   const faculty_Data = isFaculty?.faculty || []
 
-  // console.log(faculty_Data)
-
   const handleView = (data) => {
-    // const data = isFacult?.sessions.find((item) => item._id === id)
     setIsViewFacultyModal(true)
     setIsFacultyItem(data)
-    // console.log(isFacultyItem)
+
+  }
+
+  const handleStatus = (data) => {
+    setIsFacultyStatusModal(true)
+    setIsFacultyItem(data)
   }
 
   const handleEdit = (data) => {
@@ -77,15 +75,15 @@ const FacultyPage = () => {
             <Edit2Icon size={18} />
           </button>
           <button 
+          onClick={() => handleStatus(d)}
+          type="button"
+          className={`cursor-pointer p-1 rounded-lg ${d?.isActive? 'text-green-400 hover:bg-green-100' : 'text-red-400 hover:bg-red-100'}`}
+          >{d?.isActive? <CheckCircle2Icon size={18} /> : <XCircleIcon size={18} />} </button>
+           <button 
           onClick={() => handleView(d)}
           type="button"
-          className='cursor-pointer text-green-400 hover:bg-green-100 p-1 rounded-lg'
+          className='cursor-pointer text-gray-500 hover:bg-gray-100 p-1 rounded-lg'
           ><Eye size={18} /></button>
-          <button 
-          onClick={() => handleView(d)}
-          type="button"
-          className='cursor-pointer text-red-400 hover:bg-red-100 p-1 rounded-lg'
-          ><Trash2Icon size={18} /></button>
         </div>
       )
 
@@ -95,7 +93,6 @@ const FacultyPage = () => {
   const handleAddModal = () => {
     setIsStatus('add')
     setIsAddFacultyModal(true)
-    // alert(isAddModal)
   }
   
   return (
@@ -109,7 +106,7 @@ const FacultyPage = () => {
             <StatCards number={isFaculty?.inActiveTotal} text='text-red-600' 
             icon={<XCircleIcon color='red' size={50} />} title='Inactive'
             />
-            <StatCards number={isFaculty?.total} text='text-primary-600' 
+            <StatCards number={isFaculty?.total} text='text-blue-600' 
             icon={<Sigma color='blue' size={50} />} title='Total'
             />
           </div>
@@ -123,7 +120,7 @@ const FacultyPage = () => {
           </button>
         </div>
 
-        <TableWrapper header={columnHeader} keys={tableKeys} tableData={tableData} />
+        <TableWrapper header={columnHeader} keys={tableKeys} tableData={tableData} loading={isLoading} />
 
         <Modal
         isOpen={isAddFacultyModal}
@@ -145,10 +142,10 @@ const FacultyPage = () => {
         />
 
         <Modal
-        isOpen={isViewFacultyModal}
-        onClose={() => setIsViewFacultyModal(false)}
+        isOpen={isFacultyStatusModal}
+        onClose={() => setIsFacultyStatusModal(false)}
         children={<FacultyStatusModal
-          onClose={() => setIsViewFacultyModal(false)}
+          onClose={() => setIsFacultyStatusModal(false)}
           data={isFacultyItem}
           />}
         />
