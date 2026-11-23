@@ -57,6 +57,7 @@ const FacultyPage = () => {
     
       sn: i + 1,
       name: d?.faculty,
+      isActive: d?.isActive,
       status: (
         <p className={`${d?.isActive? 'bg-green-100 dark:bg-green-200 text-green-500' : 'bg-red-100 dark:bg-red-200 text-red-500'} w-[5em] flex justify-center items-center rounded-full font-semibold text-sm`}>
           {
