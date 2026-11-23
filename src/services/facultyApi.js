@@ -13,9 +13,9 @@ const getFaculties = async () => {
     }
 }
 
-const addFaculty = async (data) => {
+const addFaculty = async (formData) => {
     try {
-        const res = await api.post(`/faculty/create/`, data);
+        const res = await api.post(`/faculty/create/`, formData);
         const msg = res?.data?.message;
         return res?.data
 
@@ -25,7 +25,21 @@ const addFaculty = async (data) => {
         throw new Error(err);
     }
 }
+
+const editFaculty = async (facultyId, formData) => {
+    try {
+        console.log(facultyId)
+        const res = await api.put(`/faculty/${facultyId}`, formData);
+        const msg = res?.data?.message;
+        return res?.data
+    } catch (e) {
+        const err = e.response?.data?.message;
+        console.log(err)
+        throw new Error(err);
+    }
+}
 export {
     getFaculties,
-    addFaculty
+    addFaculty,
+    editFaculty
 }

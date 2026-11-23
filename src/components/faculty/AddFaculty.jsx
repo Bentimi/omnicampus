@@ -1,12 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Building, Mail, Phone, Save, User, X } from "lucide-react"
 import { useForm } from "react-hook-form"
-import { addFaculty } from "../../services/facultyApi"
+import { addFaculty, editFaculty } from "../../services/facultyApi"
 import { toast } from "react-toastify"
 import Spinner from "../Spinner"
+import { useEffect } from "react"
 
 
-const AddFaculty = ({ onClose, status }) => {
+const AddFaculty = ({ onClose, status, data }) => {
     const { register, handleSubmit, control, reset, formState: {
             errors, isSubmitting, isSubmitted
         } } = useForm({
@@ -15,14 +16,29 @@ const AddFaculty = ({ onClose, status }) => {
                 faculty: ''
             }
         })
+        console.log(data)
     
+        useEffect(() => {
+            if (status === 'edit' && data) {
+                reset({
+                    faculty: data?.faculty || ''
+                })
+            } else {
+                reset({
+                    faculty: ''
+                })
+            }
+        }, [status, data, reset])
+        
         const fields = [
                 {name: 'faculty', label: 'Faculty Name', type: 'text', logo: <Building size={18} />},
             ]
     
     const queryClient = useQueryClient()
     const mutation = useMutation({
-        mutationFn: (data) => addFaculty(data),
+        mutationFn: (formData) => {
+            return status === 'add' ? addFaculty(formData) : editFaculty(data._id, formData)
+        },
         onSuccess: (res) => {
                     queryClient.invalidateQueries({ queryKey: ['faculty'] })
                     toast.success(res?.message)
@@ -33,8 +49,8 @@ const AddFaculty = ({ onClose, status }) => {
                 }
     })
 
-    const onSubmit = (data) => {
-            mutation.mutate(data)
+    const onSubmit = (formData) => {
+            mutation.mutate(formData)
         }
     const handleClose = () => {
         onClose()

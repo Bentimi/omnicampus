@@ -50,7 +50,8 @@ const FacultyPage = () => {
 
   const handleEdit = (data) => {
     setIsStatus('edit')
-    setIsAddFacultyModal(data)
+    setIsAddFacultyModal(true)
+    setIsFacultyItem(data)
   }
 
   const tableData = faculty_Data.map((d, i) => ({
@@ -129,6 +130,7 @@ const FacultyPage = () => {
         children={<AddFaculty
           onClose={() => setIsAddFacultyModal(false)}
           status={isStatus}
+          data={isFacultyItem}
           />}
         />
 
