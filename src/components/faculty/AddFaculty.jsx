@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { Building, Mail, Phone, Save, User, X } from "lucide-react"
+import { Building, Building2, Edit2, Mail, Phone, Plus, Save, User, X } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { addFaculty, editFaculty } from "../../services/facultyApi"
 import { toast } from "react-toastify"
@@ -13,7 +13,8 @@ const AddFaculty = ({ onClose, status, data }) => {
         } } = useForm({
             mode: 'onChange',
             defaultValues: {
-                faculty: ''
+                faculty: '',
+                isActive: false
             }
         })
         // console.log(data)
@@ -21,11 +22,13 @@ const AddFaculty = ({ onClose, status, data }) => {
         useEffect(() => {
             if (status === 'edit' && data) {
                 reset({
-                    faculty: data?.faculty || ''
+                    faculty: data?.faculty || '',
+                    isActive: data?.isActive || false
                 })
             } else {
                 reset({
-                    faculty: ''
+                    faculty: '',
+                    isActive: false
                 })
             }
         }, [status, data, reset])
@@ -60,14 +63,18 @@ const AddFaculty = ({ onClose, status, data }) => {
         <>
             <div className="w-fit">
             <div className='flex justify-between'>
-                <h1 className="flex gap-2 capitalize">
-                   <p className='capitalize'>
+                <h1 className="flex items-center gap-2 capitalize font-semibold text-lg text-gray-700 dark:text-gray-300">
+                   <p className="flex items-center">
+                    {status === 'add' ? <Building2 size={18} /> : <Edit2 size={18} />}
                     {status}
                     </p> 
                     Faculty
                 </h1>
                 <div>
-                    <button type="button" onClick={handleClose}
+                    <button 
+                    className="text-red-600 hover:text-red-500 cursor-pointer hover:scale-105 border rounded-lg p-1"
+                    type="button" 
+                    onClick={handleClose}
                     ><X /></button>
                 </div>
             </div>
@@ -102,7 +109,15 @@ const AddFaculty = ({ onClose, status, data }) => {
                         </div>
                     ))
                 }
+
+                <div className='flex gap-1 items-center'>
+                    <label htmlFor="isActive" className="label">Active</label>
+                    <input type="checkbox" name="isActive" id="isActive" className='ml-2 cursor-pointer border rounded-md p-2 h-5 w-5'
+                    {...register('isActive')}
+                    disabled={isSubmitting}
+                    />
                 </div>
+            </div>
 
                     {/* <div> */}
                         <button 
