@@ -22,6 +22,7 @@ const FacultyPage = () => {
 
   const columnHeader = ['s/n', 'Name', 'Status', 'CreatedAt', 'Actions']
   const tableKeys = ['sn', 'name', 'status', 'createdAt', 'actions']
+  const statusFilterOptions = ['all', 'active', 'inactive']
 
   const { data: facultyData, isLoading, isPending } = useQuery({
     queryKey: ['faculty'],
@@ -121,7 +122,7 @@ const FacultyPage = () => {
           </button>
         </div>
 
-        <TableWrapper header={columnHeader} keys={tableKeys} tableData={tableData} loading={isLoading} />
+        <TableWrapper header={columnHeader} keys={tableKeys} tableData={tableData} loading={isLoading} filter={statusFilterOptions} />
 
         <Modal
         isOpen={isAddFacultyModal}

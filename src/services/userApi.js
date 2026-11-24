@@ -107,6 +107,17 @@ const role_allocation = async (userId, data) => {
     }
 }
 
+const register_User = async (formData) => {
+    try {
+        const res = await api.post('/account/register', formData);
+        return res?.data
+    } catch (e) {
+        const err = e.response?.data?.message;
+        console.log(err)
+        throw new Error(err)
+    }
+}
+
 export {
     change_Password,
     deactivate_User,
@@ -117,5 +128,6 @@ export {
     reset_password,
     personal_profile,
     add_user,
-    role_allocation
+    role_allocation,
+    register_User
 }

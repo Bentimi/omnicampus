@@ -58,13 +58,13 @@ const LoginPage = () => {
                 initial="hidden"
                 animate="visible"
         className='grid grid-cols-1 lg:grid-cols-2 items-center justify-center w-fit md:w-3/5 min-h-[85vh] mx-auto py-10 px-3 md:px-0'>
-            <div className='bg-omni-accent dark:bg-omni-navy dark:text-omni-light flex flex-col items-center justify-center p-6 h-full'>
+            <div className='bg-omni-accent dark:bg-omni-navy dark:text-omni-light flex flex-col items-center justify-center p-6 h-full shadow-lg dark:shadow-omni-light/20'>
                 <div>
                     <img src={logo} alt="logo" className='h-[16em]'/>
                 </div>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias exercitationem suscipit blanditiis illum porro rerum, ea molestiae numquam, ipsa vero dolore, cupiditate recusandae adipisci debitis a eos laboriosam corporis est!
             </div>
-            <div className='bg-omni-light shadow-lg flex flex-col items-center justify-center p-6 h-full'>
+            <div className='bg-omni-light flex flex-col items-center justify-center p-6 h-full shadow-lg dark:shadow-omni-light/20'>
 
                 <h1 className='text-xl font-semibold dark:text-omni-navy text-omni-accent'>Login</h1>
 

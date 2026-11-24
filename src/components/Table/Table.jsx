@@ -1,14 +1,14 @@
-import { FileArchiveIcon, Folder } from "lucide-react"
+import { Search, FolderOpen } from "lucide-react"
 import Spinner from "../Spinner"
 
 
 const Table = ({ header=[], keys={}, tableData=[], loading }) => {
   // console.log(header.length)
   return (
-    <div className="w-full text-left border-colapse shadow-lg dark:shadow-omni-light/20 bg-omni-light dark:bg-omni-navy/70 dark:text-omni-light rounded-lg h-full p-2">
+    <div className="w-full text-left border-colapse bg-omni-light dark:bg-omni-navy/70 dark:text-omni-light rounded-lg h-full p-2">
       <table className="w-full">
         <thead>
-          <tr className="tracking-wider bg-gray-200 text-gray-800 font-semibold h-14">
+          <tr className="tracking-wider border border-gray-300 dark:border-gray-800 divide-x divide-gray-300 dark:divide-gray-800 font-semibold h-14">
             {
               header.map((col, i) => (
                 <th
@@ -19,7 +19,7 @@ const Table = ({ header=[], keys={}, tableData=[], loading }) => {
             }
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-300 bg-transparent items-center py-4">
+        <tbody className="divide-y divide-gray-300 dark:divide-gray-800  bg-transparent items-center py-4 border border-gray-300 dark:border-gray-800 ">
               {
                 loading ? <tr className="text-xl">
                   <td colSpan={header.length} className="">
@@ -45,11 +45,11 @@ const Table = ({ header=[], keys={}, tableData=[], loading }) => {
                     </tr>
                   )))
                   
-                 : <tr className="text-3xl">
+                 : <tr>
                   <td colSpan={header.length} className="">
                     <div className="flex flex-col justify-center items-center w-full min-h-[30vh] lg:min-h-[45vh]">
-                      <Folder size={100} /> 
-                      <span>No record found</span>
+                      <FolderOpen size={100} /> 
+                      <p className="text-lg flex items-center  gap-2 justify-center"> No record found</p>
                     </div>
                   </td>
                 </tr>

@@ -3,7 +3,7 @@ import Table from "./Table"
 import { useMemo, useState } from "react"
 
 
-const TableWrapper = ({ header=[], keys=[], tableData=[], loading }) => {
+const TableWrapper = ({ header=[], keys=[], tableData=[], loading, filter=[] }) => {
 
   // console.log(tableData.map(item => item.status));
   const [isSearchTerm, setIsSearchTerm] = useState('');
@@ -74,12 +74,13 @@ const TableWrapper = ({ header=[], keys=[], tableData=[], loading }) => {
 
   return (
     <>
-      <div className="p-4 shadow-2xl bg-transparent dark:shadow-omni-light/10 rounded-xl dark:border dark:border-omni-light my-5">
+      <div className="p-4 shadow-2xl bg-transparent dark:shadow-omni-light/10 rounded-xl my-5">
         <div className="flex justify-between py-4">
-          <div>
+          <div className="flex gap-2 items-center">
+            <p className="dark:text-gray-400">Show</p>
             <select 
             onChange={handlePageSizeChange}
-            value={isPageSize} name="" id="" className="border p-1 outline-none rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black focus-within:border-black cursor-pointer dark:border-omni-light dark:text-omni-light dark:focus:ring-omni-light">
+            value={isPageSize} name="" id="" className="border p-1 outline-none rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black focus-within:border-black cursor-pointer dark:border-gray-800 dark:text-gray-400 dark:focus:ring-gray-400">
               <option value={1}>1</option>
               <option value={2}>2</option>
               <option value={3}>3</option>
@@ -89,16 +90,22 @@ const TableWrapper = ({ header=[], keys=[], tableData=[], loading }) => {
               <option value={50}>50</option>
               <option value={100}>100</option>
             </select>
+            <p className="dark:text-gray-400">Entries</p>
           </div>
 
         <div className="flex gap-2">
           <div>
             <select 
             onChange={handleStatusChange}
-            value={statusFilter} name="" id="" className="border p-1 outline-none rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black focus-within:border-black cursor-pointer dark:border-omni-light dark:text-omni-light dark:focus:ring-omni-light">
-              <option value="all">All</option>
+            value={statusFilter} name="" id="" className="border p-1 outline-none rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black focus-within:border-black cursor-pointer dark:border-gray-800 dark:text-gray-400 dark:focus:ring-gray-400">
+              {
+                filter.map((item, index) => (
+                  <option className="capitalize" value={item} key={index}>{item}</option>
+                ))
+              }
+              {/* <option value="all">All</option>
               <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
+              <option value="inactive">Inactive</option> */}
             </select>
           </div>
 
@@ -106,7 +113,7 @@ const TableWrapper = ({ header=[], keys=[], tableData=[], loading }) => {
             <input 
             value={isSearchTerm}
             onChange={handleSearchChange}
-            type="search" name="" id="" placeholder="Search here..." className="border p-1 outline-none rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black focus-within:border-black dark:border-omni-light dark:text-omni-light dark:focus:ring-omni-light dark:focus-within:border-omni-light"/>
+            type="search" name="" id="" placeholder="Search here..." className="border p-1 outline-none rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black focus-within:border-black dark:border-gray-800 dark:text-gray-400 dark:focus:ring-gray-400 dark:focus-within:border-gray-400"/>
           </div>
         </div>
         </div>

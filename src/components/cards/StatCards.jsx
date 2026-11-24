@@ -3,7 +3,7 @@ import React from 'react'
 const StatCards = ({title, icon, number, text}) => { 
   return (
     <>
-      <div className='flex justify-between w-[15em] lg:w-[18em] h-30 shadow-lg dark:shadow-omni-light/5 dark:border-omni-light dark:border-1 p-3 bg-white dark:bg-omni-navy rounded-lg gap-2'>
+      <div className='flex justify-between w-[15em] lg:w-[18em] h-30 shadow-lg dark:shadow-omni-light/5 dark:border-gray-800 dark:border p-3 bg-white dark:bg-omni-navy rounded-lg gap-2'>
         <div className='flex justify-center items-center'>
           {icon}
         </div>

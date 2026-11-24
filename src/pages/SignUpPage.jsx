@@ -1,12 +1,15 @@
 import React from 'react'
 import logo from '../assets/logo.png'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { useForm, useWatch } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
 import { Check, X, Dot } from 'lucide-react'
+import { register_User } from '../services/userApi'
+import { toast } from 'react-toastify'
+import Spinner from '../components/Spinner'
 
 const SignUpPage = () => {
-    const { register, handleSubmit, formState, control } = useForm({ mode: 'onChange' });
+    const { register, handleSubmit, formState, control, reset } = useForm({ mode: 'onChange' });
     const { errors, isSubmitted } = formState;
 
     const passwordValue = useWatch({ control, name: 'password', defaultValue: '' })
@@ -21,25 +24,41 @@ const SignUpPage = () => {
     
         ]
 
-        const mutation = useMutation();
+        const navigate = useNavigate();
 
-        const onSubmit = () => {
+        const mutation = useMutation({
+            mutationFn: (formData) => register_User(formData),
+            onSuccess: (res) => {
+                toast.success(res?.message);
+                reset();
+                navigate('/login');
+            },
+            onError: (err) => {
+                toast.error(err?.message || 'Internal Server Error');
+            }
+        });
 
+        const onSubmit = (formData) => {
+            mutation.mutate(formData);
         }
+
   return (
     <>
-        <section className='bg-omni-light py-10 px-6 md:px-0'>
-            <div className='shadow-lg grid grid-cols-1 lg:grid-cols-2 items-center justify-center w-fit md:w-3/5 min-h-[85vh] mx-auto'>
+        <section className='bg-omni-light dark:bg-omni-navy py-10 px-6 md:px-0'>
+            <div className='shadow-lg grid grid-cols-1 lg:grid-cols-2 items-center justify-center w-fit md:w-3/5 min-h-[85vh] mx-auto dark:shadow-omni-light/20'>
             <div className='bg-omni-accent dark:bg-omni-navy dark:text-omni-light flex flex-col items-center justify-center p-6 h-full'>
                 <div>
                     <img src={logo} alt="logo" className='h-[16em]'/>
                 </div>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias exercitationem suscipit blanditiis illum porro rerum, ea molestiae numquam, ipsa vero dolore, cupiditate recusandae adipisci debitis a eos laboriosam corporis est!
             </div>
-            <div className='p-6'>
+            <div className='p-6 bg-omni-light'>
                 <div>
                     <h1 className='text-2xl font-semibold text-center text-omni-accent dark:text-omni-navy'>Create an Account</h1>
                     <p className='text-gray-600 italic text-sm'>Carefully create an account here...</p>
+                    <div className='flex items-center gap-2'>
+                        {mutation.isError && <small className='text-red-500 italic font-semibold'>{mutation?.error?.message}</small>}
+                    </div>
                 </div>
                 <form
                 onSubmit={handleSubmit(onSubmit)}
@@ -83,6 +102,18 @@ const SignUpPage = () => {
                             )
                         }/>
                         {errors?.email?.message && <small className='error'>{errors.email.message}</small>}
+                    </div>
+                    <div className='flex flex-col gap-2'>
+                        <label className='label' htmlFor="phone_number">Phone Number</label>
+                        <input id='phone_number' name='phone_number' type="number" placeholder='Enter Phone Number' className={`w-full ${errors?.phone_number ? 'error-input' : 'input'}`} 
+                        {
+                            ...register('phone_number',
+                                {
+                                    required: "Phone number is required"
+                                }
+                            )
+                        }/>
+                        {errors?.phone_number?.message && <small className='error'>{errors.phone_number.message}</small>}
                     </div>
                     <div className='flex flex-col gap-2'>
                         <label className='label' htmlFor="password">Password</label>
@@ -139,10 +170,12 @@ const SignUpPage = () => {
                         </div>
                     </div>
 
-                    <button type="submit" className='w-full bg-omni-accent dark:bg-omni-navy p-2 font-semibold rounded-lg dark:text-omni-light transition-colors duration-300 cursor-pointer hover:bg-omni-accent/85 dark:hover:bg-omni-navy/85 ease-in-out'>Create Account</button>
+                    <button disabled={mutation.isPending} type="submit" className={`w-full bg-omni-accent dark:bg-omni-navy p-2 font-semibold rounded-lg dark:text-omni-light transition-colors duration-300 hover:bg-omni-accent/85 dark:hover:bg-omni-navy/85 ease-in-out ${mutation.isPending ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>{mutation.isPending? <div className='flex items-center justify-center gap-2 '>
+                        <Spinner /> Creating Account...
+                    </div> : 'Create Account'}</button>
 
                     <div className='flex gap-1 justify-center'>
-                        <p>Have an account Already? </p> <Link to='/login' className='text-omni-primary dark:text-omni-secondary'>LogIn</Link>
+                        <p>Have an account Already? </p> <Link to={!mutation.isPending && '/login' } className='text-omni-primary dark:text-omni-secondary'>LogIn</Link>
                     </div>
                 </form>
             </div>
