@@ -171,7 +171,7 @@ const SignUpPage = () => {
                     </div>
 
                     <button disabled={mutation.isPending} type="submit" className={`w-full bg-omni-accent dark:bg-omni-navy p-2 font-semibold rounded-lg dark:text-omni-light transition-colors duration-300 hover:bg-omni-accent/85 dark:hover:bg-omni-navy/85 ease-in-out ${mutation.isPending ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>{mutation.isPending? <div className='flex items-center justify-center gap-2 '>
-                        <Spinner /> Creating Account...
+                        {/* <Spinner /> */} Creating Account...
                     </div> : 'Create Account'}</button>
 
                     <div className='flex gap-1 justify-center'>
