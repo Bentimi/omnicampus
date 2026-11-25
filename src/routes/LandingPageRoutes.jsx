@@ -42,7 +42,7 @@ const LandingPageRoutes = () => {
           <Route path='signup' element={<SignUpPage />} />
           <Route path='forget-password' element={<ForgetPassword />} />
           <Route path='user/reset-password' element={<ResetPassword />} />
-          <Route path='user/id-card' elsement={<IdCard />} />
+          <Route path='user/id-card' element={<IdCard />} />
           <Route path='unauthorized' element={<UnauthorizedPage />} />
 
       {/* General Routes */}
