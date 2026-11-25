@@ -23,6 +23,7 @@ import UsersPage from '../pages/admin/UsersPage';
 import ResetPassword from '../pages/ResetPassword';
 import CoursesPage from '../pages/admin/CoursesPage';
 import DepartmentPage from '../pages/admin/DepartmentPage';
+import IdCard from '../pages/general/IdCard';
 
 
 const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ const LandingPageRoutes = () => {
           <Route path='signup' element={<SignUpPage />} />
           <Route path='forget-password' element={<ForgetPassword />} />
           <Route path='user/reset-password' element={<ResetPassword />} />
+          <Route path='user/id-card' elsement={<IdCard />} />
           <Route path='unauthorized' element={<UnauthorizedPage />} />
 
       {/* General Routes */}
