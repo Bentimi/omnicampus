@@ -37,6 +37,7 @@ const FacultyPage = () => {
 
   const faculty_Data = isFaculty?.faculty || []
 
+
   const handleView = (data) => {
     setIsViewFacultyModal(true)
     setIsFacultyItem(data)
