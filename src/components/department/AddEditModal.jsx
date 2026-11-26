@@ -137,8 +137,8 @@ const [isFaculty, setIsFaculty] = useState(null);
                     />
                 </div>
           <div className='flex gap-2 justify-between items-center py-3'>
-            <button onClick={handleClose} disabled={mutation.isPending} type="button"  className='flex items-center justify-center gap-3 text-lg border w-full rounded-lg h-10 cursor-pointer'>Cancel</button>
-            <button disabled={mutation.isPending} type="submit" className='flex items-center justify-center gap-3 text-lg border w-full rounded-lg h-10 cursor-pointer'>{mutation.isPending? <span className='flex items-center justify-center gap-2'><Spinner /> saving...</span> : <span className='flex items-center justify-center gap-2'><Save /> Save</span>}</button>
+            <button onClick={handleClose} disabled={mutation.isPending} type="button"  className='flex items-center justify-center gap-1 text-lg w-full rounded-lg h-10 cursor-pointer font-semibold text-omni-light bg-gray-500'><X />Cancel</button>
+            <button disabled={mutation.isPending} type="submit" className={`flex items-center justify-center gap-3 text-lg font-semibold text-omni-light ${mutation.isPending? 'bg-omni-accent/50' : 'bg-omni-accent'} w-full rounded-lg h-10 cursor-pointer`}>{mutation.isPending? <span className='flex items-center justify-center gap-2'><Spinner /> saving...</span> : <span className='flex items-center justify-center gap-2'><Save /> Save</span>}</button>
           </div>
         </form>
       </main>
