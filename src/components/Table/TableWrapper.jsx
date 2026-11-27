@@ -79,8 +79,9 @@ const TableWrapper = ({ header=[], keys=[], tableData=[], loading, filter=[] }) 
           <div className="flex gap-2 items-center">
             <p className="dark:text-gray-400">Show</p>
             <select 
+            disabled={!tableData?.length > 0}
             onChange={handlePageSizeChange}
-            value={isPageSize} name="" id="" className="border p-1 outline-none rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black focus-within:border-black cursor-pointer dark:border-gray-800 dark:text-gray-400 dark:focus:ring-gray-400">
+            value={isPageSize} name="" id="" className={`border p-1 outline-none rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black focus-within:border-black dark:border-gray-800 dark:text-gray-400 dark:focus:ring-gray-400 ${!tableData?.length > 0 ? 'bg-gray-300 text-opacity-50' : 'cursor-pointer '}}`}>
               <option value={1}>1</option>
               <option value={2}>2</option>
               <option value={3}>3</option>
@@ -96,22 +97,21 @@ const TableWrapper = ({ header=[], keys=[], tableData=[], loading, filter=[] }) 
         <div className="flex gap-2">
           <div>
             <select 
+            disabled={!tableData?.length > 0}
             onChange={handleStatusChange}
-            value={statusFilter} name="" id="" className="border p-1 outline-none rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black focus-within:border-black cursor-pointer dark:border-gray-800 dark:text-gray-400 dark:focus:ring-gray-400">
+            value={statusFilter} name="" id="" className={`border p-1 outline-none rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black focus-within:border-black ${!tableData?.length > 0 ? 'bg-gray-300 text-opacity-50' : 'cursor-pointer '} dark:border-gray-800 dark:text-gray-400 dark:focus:ring-gray-400`}>
               {
                 filter.map((item, index) => (
                   <option className="capitalize" value={item} key={index}>{item}</option>
                 ))
               }
-              {/* <option value="all">All</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option> */}
             </select>
           </div>
 
           <div>
             <input 
             value={isSearchTerm}
+            disabled={!tableData?.length > 0}
             onChange={handleSearchChange}
             type="search" name="" id="" placeholder="Search here..." className="border p-1 outline-none rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black focus-within:border-black dark:border-gray-800 dark:text-gray-400 dark:focus:ring-gray-400 dark:focus-within:border-gray-400"/>
           </div>

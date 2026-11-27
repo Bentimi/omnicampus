@@ -123,7 +123,12 @@ const FacultyPage = () => {
           </button>
         </div>
 
-        <TableWrapper header={columnHeader} keys={tableKeys} tableData={tableData} loading={isLoading} filter={statusFilterOptions} />
+        <TableWrapper 
+        header={columnHeader} 
+        keys={tableKeys} 
+        tableData={tableData} 
+        loading={isLoading} 
+        filter={statusFilterOptions} />
 
         <Modal
         isOpen={isAddFacultyModal}
