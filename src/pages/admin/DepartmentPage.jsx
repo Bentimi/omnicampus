@@ -4,14 +4,15 @@ import Modal from '../../components/Modal';
 import TableWrapper from '../../components/Table/TableWrapper';
 import { useQuery } from '@tanstack/react-query';
 import { allDepartment } from '../../services/departmentApi';
+import { formatDate } from '../../services/formatDate';
 
 const DepartmentPage = () => {
   const [isAddEditModal, setIsAddEditModal] = useState(false);
   const [status, setStatus] = useState(null);
   const [isDepartment, setIsDepartment] = useState(null)
 
-  const columnHeaders = ['s/n', 'Name', 'Status', 'CreatedAt','Actions'];
-  const tableKeys = ['s/n', 'name', 'status', 'createdAt', 'actions'];
+  const columnHeaders = ['S/N', 'Name', 'Status', 'CreatedAt','Actions'];
+  const tableKeys = ['sn', 'name', 'status', 'createdAt', 'actions'];
   const statusFilterOptions = ['all', 'active', 'inactive']
 
   const { data: departmentData, isLoading, isPending } = useQuery({
@@ -26,7 +27,8 @@ const DepartmentPage = () => {
     }
   }, [departmentData])
 
-  console.log(isDepartment)
+  const department_Data = isDepartment || []
+  // console.log(department_Data)
 
 
   const handleAddModal = () => {
@@ -34,7 +36,20 @@ const DepartmentPage = () => {
     setStatus('add')
   }
 
-  // const tableData = 
+  const tableData = department_Data.map((d, i) => ({
+    sn: i + 1,
+    name: d?.department,
+    isActive: d?.isActive,
+    status: (
+      <p className={`${d?.isActive? 'bg-green-100 dark:bg-green-200 text-green-500' : 'bg-red-100 dark:bg-red-200 text-red-500'} w-[5em] flex justify-center items-center rounded-full font-semibold text-sm`}>
+        {
+          d?.isActive ? 'Active' : 'Inactive'
+        }
+      </p>
+    ),
+    createdAt: formatDate(d?.createdAt, 'date'),
+    actions: 'Action'
+  }))
   return (
     <>
     <div>
@@ -50,6 +65,8 @@ const DepartmentPage = () => {
       <TableWrapper 
       header={columnHeaders}
       keys={tableKeys}
+      tableData={tableData} 
+      loading={isLoading} 
       filter={statusFilterOptions}
       />
     </div>

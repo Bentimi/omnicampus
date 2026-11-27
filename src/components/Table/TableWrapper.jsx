@@ -76,7 +76,8 @@ const TableWrapper = ({ header=[], keys=[], tableData=[], loading, filter=[] }) 
     <>
       <div className="p-4 shadow-2xl bg-transparent dark:shadow-omni-light/10 rounded-xl my-5">
         <div className="flex justify-between py-4">
-          <div className="flex gap-2 items-center">
+          <div>
+            <div className="flex gap-2 items-center">
             <p className="dark:text-gray-400">Show</p>
             <select 
             disabled={!tableData?.length > 0}
@@ -92,6 +93,11 @@ const TableWrapper = ({ header=[], keys=[], tableData=[], loading, filter=[] }) 
               <option value={100}>100</option>
             </select>
             <p className="dark:text-gray-400">Entries</p>
+          </div>
+
+          <div>
+            <small className="opacity-80 italic">Total data count {tableData?.length}</small>
+          </div>
           </div>
 
         <div className="flex gap-2">

@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Building2, Save, X } from 'lucide-react'
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form'
@@ -63,9 +63,11 @@ const [isFaculty, setIsFaculty] = useState(null);
     reset()
   }
 
+  const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: (formData) => addDepartment(formData),
     onSuccess: (res) => {
+      queryClient.invalidateQueries({ queryKey: ['department'] })
       toast.success(res?.message)
       handleClose()
     },
