@@ -24,7 +24,20 @@ const allDepartment = async () => {
         throw new Error(err);
     }
 }
+
+const editDepartment = async (departmentId, formData) => {
+    try {
+        const res = await api.put(`/department/${departmentId}`, formData);
+        const msg = res?.data?.message;
+        return res?.data;
+    } catch (e) {
+        const err = e.response?.data?.message;
+        console.log(err);
+        throw new Error(err);
+    }
+}
 export {
     addDepartment,
-    allDepartment
+    allDepartment,
+    editDepartment
 }
