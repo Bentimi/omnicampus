@@ -7,7 +7,7 @@ import { addDepartment } from '../../services/departmentApi';
 import { toast } from 'react-toastify';
 import Spinner from '../Spinner';
 
-const AddEditModal = ({ onClose, status }) => {
+const AddEditModal = ({ onClose, status, data }) => {
 const [isFaculty, setIsFaculty] = useState(null);
 
   const facultyData = useQuery({
@@ -24,37 +24,39 @@ const [isFaculty, setIsFaculty] = useState(null);
   console.log(isFaculty?.data)
 
   const allFaculties = isFaculty?.data?.faculty.map((d,i) => ({
-    name: d?.faculty,
+    faculty: d?.faculty,
     id: d?._id
   }))
 
-  console.log(allFaculties)
+  // console.log(allFaculties)
 
   const { register, handleSubmit, control, reset, formState:{
     isSubmitted, isLoading, errors, isSubmitting
   } } = useForm({ mode: 'onChange',
     defaultValues: {
       department: '',
-      isActive: '',
+      isActive: false,
       faculty: ''
     }
    });
 
+  //  console.log(data?.faculty)
+
    useEffect(() => {
-    if (status === 'edit') {
+    if (status === 'edit' && data) {
       reset({
-        department: '',
-        isActive: '',
-        faculty: ''
+        department: data?.department || '',
+        isActive: Boolean(data?.isActive),
+        faculty: data?.faculty?._id || ''
       })
     } else {
       reset({
         department: '',
-        isActive: '',
+        isActive: false,
         faculty: ''
       })
     }
-   }, [status, reset])
+   }, [status, reset, data])
 
   //  console.log(get_faculty)
 

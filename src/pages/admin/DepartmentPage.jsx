@@ -5,11 +5,13 @@ import TableWrapper from '../../components/Table/TableWrapper';
 import { useQuery } from '@tanstack/react-query';
 import { allDepartment } from '../../services/departmentApi';
 import { formatDate } from '../../services/formatDate';
+import { CheckCircle2Icon, Edit2Icon, Eye, XCircleIcon } from 'lucide-react';
 
 const DepartmentPage = () => {
   const [isAddEditModal, setIsAddEditModal] = useState(false);
   const [status, setStatus] = useState(null);
-  const [isDepartment, setIsDepartment] = useState(null)
+  const [isDepartment, setIsDepartment] = useState(null);
+  const [isDepartmentItem, setIsDepartmentItem] = useState(null);
 
   const columnHeaders = ['S/N', 'Name', 'Status', 'CreatedAt','Actions'];
   const tableKeys = ['sn', 'name', 'status', 'createdAt', 'actions'];
@@ -36,6 +38,21 @@ const DepartmentPage = () => {
     setStatus('add')
   }
 
+  const handleEdit = (data) => {
+    setStatus('edit')
+    setIsAddEditModal(true)
+    setIsDepartmentItem(data)
+    // console.log(isDepartmentItem)
+  }
+
+  const handleStatus = (data) => {
+    
+  }
+
+  const handleView = (data) => {
+
+  }
+
   const tableData = department_Data.map((d, i) => ({
     sn: i + 1,
     name: d?.department,
@@ -48,7 +65,27 @@ const DepartmentPage = () => {
       </p>
     ),
     createdAt: formatDate(d?.createdAt, 'date'),
-    actions: 'Action'
+    actions: (
+        <div className='flex gap-1'>
+          <button 
+          onClick={() => handleEdit(d)}
+          type="button"
+          className='cursor-pointer text-blue-400 hover:bg-blue-100 p-1 rounded-lg'
+          >
+            <Edit2Icon size={18} />
+          </button>
+          <button 
+          onClick={() => handleStatus(d)}
+          type="button"
+          className={`cursor-pointer p-1 rounded-lg ${d?.isActive? 'text-green-400 hover:bg-green-100' : 'text-red-400 hover:bg-red-100'}`}
+          >{d?.isActive? <CheckCircle2Icon size={18} /> : <XCircleIcon size={18} />} </button>
+           <button 
+          onClick={() => handleView(d)}
+          type="button"
+          className='cursor-pointer text-gray-500 hover:bg-gray-100 p-1 rounded-lg'
+          ><Eye size={18} /></button>
+        </div>
+      )
   }))
   return (
     <>
@@ -76,6 +113,7 @@ const DepartmentPage = () => {
         children={<AddEditModal
         onClose={() => setIsAddEditModal(false)}  
         status={status}
+        data={isDepartmentItem}
         />}
       />
     </>
