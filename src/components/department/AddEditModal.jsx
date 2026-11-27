@@ -3,7 +3,7 @@ import { Building2, Save, X } from 'lucide-react'
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form'
 import { getFaculties } from '../../services/facultyApi';
-import { addDepartment } from '../../services/departmentApi';
+import { addDepartment, editDepartment } from '../../services/departmentApi';
 import { toast } from 'react-toastify';
 import Spinner from '../Spinner';
 
@@ -67,7 +67,7 @@ const [isFaculty, setIsFaculty] = useState(null);
 
   const queryClient = useQueryClient()
   const mutation = useMutation({
-    mutationFn: (formData) => addDepartment(formData),
+    mutationFn: (formData) => status==='add'? addDepartment(formData) : editDepartment(data?._id,formData),
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: ['department'] })
       toast.success(res?.message)
