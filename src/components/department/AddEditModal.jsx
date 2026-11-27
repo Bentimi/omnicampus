@@ -21,7 +21,7 @@ const [isFaculty, setIsFaculty] = useState(null);
     }
   }, [facultyData])
 
-  console.log(isFaculty?.data)
+  // console.log(isFaculty?.data)
 
   const allFaculties = isFaculty?.data?.faculty.map((d,i) => ({
     faculty: d?.faculty,

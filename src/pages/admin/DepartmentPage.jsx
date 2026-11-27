@@ -89,7 +89,7 @@ const DepartmentPage = () => {
   }))
   return (
     <>
-    <div>
+    <div className='p-6'>
       <div>DepartmentPage</div>
 
       <div className='flex justify-end items-center'>
